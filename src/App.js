@@ -8,7 +8,7 @@ import {
   faPersonBurst,
   faCircleQuestion,
   faPersonCircleQuestion,
-  faCar,
+  faTrain,
 } from "@fortawesome/free-solid-svg-icons";
 
 const App = () => {
@@ -111,7 +111,7 @@ const App = () => {
         try {
           const response = await fetch(url);
           const json = await response.json();
-          console.log(json);
+          //console.log(json);
           setTrainData(json.TrainPositions);
         } catch (error) {
           console.log("error", error);
@@ -161,9 +161,9 @@ const App = () => {
   const carCountData = [...uniqueCarCount.keys()];
   carCountData.unshift("all");
   const carFontIcons = new Map();
-  carFontIcons.set(8, faCar);
-  carFontIcons.set(6, faCar);
-  carFontIcons.set(0, faCar);
+  carFontIcons.set(8, faTrain);
+  carFontIcons.set(6, faTrain);
+  carFontIcons.set(0, faTrain);
   const serviceTyepIcons = new Map();
   serviceTyepIcons.set("NoPassengers", faPersonCircleXmark);
   serviceTyepIcons.set("Normal", faPeopleGroup);
