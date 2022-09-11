@@ -8,6 +8,7 @@ import {
   faPersonBurst,
   faCircleQuestion,
   faPersonCircleQuestion,
+  faCar,
 } from "@fortawesome/free-solid-svg-icons";
 
 const App = () => {
@@ -137,7 +138,10 @@ const App = () => {
   lineData.unshift("all");
   const carCountData = [...uniqueCarCount.keys()];
   carCountData.unshift("all");
-
+  const carFontIcons = new Map();
+  carFontIcons.set(8, faCar);
+  carFontIcons.set(6, faCar);
+  carFontIcons.set(0, faCar);
   const serviceTyepIcons = new Map();
   serviceTyepIcons.set("NoPassengers", faPersonCircleXmark);
   serviceTyepIcons.set("Normal", faPeopleGroup);
@@ -247,7 +251,12 @@ const App = () => {
                     <td>{train.DirectionNum}</td>
                     <td>{train.DestinationStationCode}</td>
                     <td>{train.CircuitId}</td>
-                    <td>{train.CarCount}</td>
+                    <td>
+                      {train.CarCount}{" "}
+                      <FontAwesomeIcon
+                        icon={carFontIcons.get(train.CarCount)}
+                      />
+                    </td>
                   </tr>
                 );
               })}
