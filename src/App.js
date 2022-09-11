@@ -22,7 +22,6 @@ const App = () => {
   const handleChange = (e) => {
     setValue(e.target.value);
     let allFilters = document.querySelectorAll(".table-filter");
-    console.log(e.target.value, "######################");
     let filter_value_dict = {};
     allFilters.forEach((filter_i) => {
       let col_index = filter_i.parentElement.getAttribute("col-index");
@@ -36,15 +35,12 @@ const App = () => {
     const rows = document.querySelectorAll("#emp-table tbody tr");
     rows.forEach((row) => {
       let display_row = true;
-      console.log(e.target.value, "My Rowwwwwwwwww");
       allFilters.forEach((filter_i) => {
         let col_index = filter_i.parentElement.getAttribute("col-index");
-        // console.log(col_index, "&&&&&&&&&&&&&&&&&&&&&");
         col_cell_value_dict[col_index] = row.querySelector(
           "td:nth-child(" + col_index + ")"
         ).innerHTML;
       });
-      //console.log(col_cell_value_dict, "%%%%%%%%%%%%%%%%%%%%%");
       for (var col_i in filter_value_dict) {
         let filter_value = filter_value_dict[col_i];
         const linCodeValues1 = new Map();
@@ -66,14 +62,21 @@ const App = () => {
           ["BL", "RD", "OR", "SV", "YL", "GR", "NoColor"].includes(filter_value)
         ) {
           var row_cell_value = linCodeValues1.get(col_cell_value_dict[col_i]);
-          console.log(row_cell_value, "For color");
         } else {
-          console.log("Am i coming gere");
           var row_cell_value = col_cell_value_dict[col_i];
+        }
+        if (row_cell_value === 0) {
+          if (
+            parseInt(row_cell_value) === parseInt(filter_value) &&
+            filter_value != "all"
+          ) {
+            display_row = true;
+          } else {
+            display_row = false;
+          }
         }
         if (row_cell_value)
           if (!Number.isInteger(parseInt(row_cell_value))) {
-            // console.log("Inside Heeereeee");
             if (
               row_cell_value.indexOf(filter_value) == -1 &&
               filter_value != "all"
@@ -86,66 +89,41 @@ const App = () => {
               parseInt(row_cell_value) === parseInt(filter_value) &&
               filter_value != "all"
             ) {
-              console.log(row, "Rows Here");
-              // console.log("lol i am here");
               display_row = true;
-              break;
+            } else {
+              display_row = false;
             }
           }
-        // if (
-        //   (typeof row_cell_value !== Number &&
-        //     row_cell_value.indexOf(filter_value) == -1 &&
-        //     filter_value != "all") ||
-        //   (parseInt(row_cell_value) === parseInt(filter_value) &&
-        //     filter_value != "all")
-        // ) {
-        //   display_row = false;
-        //   break;
-        // }
       }
-      if (Number.isInteger(parseInt(row_cell_value))) {
-        if (display_row == false) {
-          // console.log("inside True");
-          row.style.display = "none";
-        } else {
-          //  console.log("Inside falase");
-          row.style.display = "table-row";
-        }
+      if (display_row == true) {
+        row.style.display = "table-row";
       } else {
-        if (display_row == true) {
-          // console.log("inside True");
-
-          row.style.display = "table-row";
-        } else {
-          //  console.log("Inside falase");
-          row.style.display = "none";
-        }
+        row.style.display = "none";
       }
     });
   };
   const [trainData, setTrainData] = useState([]);
   useEffect(() => {
-    //console.log("i fire once");
     const url =
       "https://api.wmata.com/TrainPositions/TrainPositions?contentType=json&api_key=c556af80af504f42ab0c1906b84f17ad";
-    // const id = setInterval(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const json = await response.json();
-        console.log(json);
-        setTrainData(json.TrainPositions);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-    fetchData();
-    const date = new Date();
-    const pst = date.toLocaleString("en-US", {
-      timeZone: "America/Los_Angeles",
-    });
-    setTimeValue(pst);
-    // }, 10000);
+    const id = setInterval(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(url);
+          const json = await response.json();
+          console.log(json);
+          setTrainData(json.TrainPositions);
+        } catch (error) {
+          console.log("error", error);
+        }
+      };
+      fetchData();
+      const date = new Date();
+      const pst = date.toLocaleString("en-US", {
+        timeZone: "America/Los_Angeles",
+      });
+      setTimeValue(pst);
+    }, 10000);
   }, []);
 
   const uniqueSerivces = new Map();
@@ -180,7 +158,6 @@ const App = () => {
   const lineData = [...uniqueLineCode.keys()];
   lineData.shift(2, 1);
   lineData.unshift("all");
-  console.log(lineData, "My Line Data");
   const carCountData = [...uniqueCarCount.keys()];
   carCountData.unshift("all");
   const carFontIcons = new Map();
