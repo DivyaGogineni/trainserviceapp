@@ -54,7 +54,7 @@ tr:nth-child(even) {
 }
 
 table th {
-  position: sticky;
+  position: static;
   top: 0px;
 
   background-color: #133b5c;
@@ -74,19 +74,10 @@ table td {
   padding-bottom: 10px;
 }
 
-td[data-stat="confirmed"] {
-  background-color: green;
-  color: #fff;
-}
-td[data-stat="unconfirmed"] {
-  background-color: red;
-  color: #fff;
-}
-
 table td {
   text-align: left;
 
   font-size: 15px;
-  border: 1px solid rgb(177, 177, 177);
+  border: 1px solid;
   padding-left: 20px;
 }
