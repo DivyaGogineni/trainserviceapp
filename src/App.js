@@ -270,9 +270,9 @@ const App = () => {
                     <td>{train.CircuitId}</td>
                     <td>
                       {train.CarCount}{" "}
-                      {/* <FontAwesomeIcon
+                      <FontAwesomeIcon
                         icon={carFontIcons.get(train.CarCount)}
-                      /> */}
+                      />
                     </td>
                   </tr>
                 );
