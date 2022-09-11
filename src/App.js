@@ -10,22 +10,18 @@ const App = () => {
   const [time, setTimeValue] = useState(0);
 
   const handleChange = (e) => {
-    console.log("Handle Changed Clicked", e.target.value);
     setValue(e.target.value);
     let allFilters = document.querySelectorAll(".table-filter");
     let filter_value_dict = {};
-    console.log(allFilters, "All Filters");
     allFilters.forEach((filter_i) => {
       let col_index = filter_i.parentElement.getAttribute("col-index");
       let value = filter_i.value;
-      console.log(value, "This is value");
       if (value !== "all") {
         filter_value_dict[col_index] = value;
       }
     });
 
     let col_cell_value_dict = {};
-    console.log(filter_value_dict, "**********************");
     const rows = document.querySelectorAll("#emp-table tbody tr");
     rows.forEach((row) => {
       let display_row = true;
@@ -39,10 +35,6 @@ const App = () => {
       for (var col_i in filter_value_dict) {
         let filter_value = filter_value_dict[col_i];
         let row_cell_value = col_cell_value_dict[col_i];
-
-        console.log(filter_value, "filter_value");
-        console.log(row_cell_value, "row_cell_value");
-
         if (
           row_cell_value.indexOf(filter_value) == -1 &&
           filter_value != "all"
@@ -51,7 +43,6 @@ const App = () => {
           break;
         }
       }
-
       if (display_row == true) {
         row.style.display = "table-row";
       } else {
@@ -104,7 +95,6 @@ const App = () => {
   lineData.unshift("all");
   const carCountData = [...uniqueCarCount.keys()];
   carCountData.unshift("all");
-  console.log(carCountData, "This is CarcountDaa ");
   return (
     <>
       {" "}
@@ -135,7 +125,7 @@ const App = () => {
                 <th col-index={5}>
                   LineCode
                   <select
-                    class="table-filter"
+                    className="table-filter"
                     onChange={(e) => handleChange(e)}
                   >
                     {lineData.map((value2) => {
@@ -143,21 +133,17 @@ const App = () => {
                     })}
                   </select>
                 </th>
-                <th col-index={5}>DirectionNum</th>
-                <th col-index={5}>DestinationStationCode</th>
-                <th col-index={5}>CircuitId</th>
-                <th col-index={5}>
+                <th col-index={6}>DirectionNum</th>
+                <th col-index={7}>DestinationStationCode</th>
+                <th col-index={8}>CircuitId</th>
+                <th col-index={9}>
                   CarCount
                   <select
-                    class="table-filter"
+                    className="table-filter"
                     onChange={(e) => handleChange(e)}
                   >
                     {carCountData.map((value1) => {
-                      return (
-                        <option value={value1.toString()}>
-                          {value1.toString()}
-                        </option>
-                      );
+                      return <option value={value1}>{value1}</option>;
                     })}
                   </select>
                 </th>
