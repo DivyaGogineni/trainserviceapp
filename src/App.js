@@ -7,6 +7,7 @@ import {
   faPersonCircleXmark,
   faPersonBurst,
   faCircleQuestion,
+  faPersonCircleQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 
 const App = () => {
@@ -141,7 +142,7 @@ const App = () => {
   serviceTyepIcons.set("NoPassengers", faPersonCircleXmark);
   serviceTyepIcons.set("Normal", faPeopleGroup);
   serviceTyepIcons.set("Special", faPersonBurst);
-  serviceTyepIcons.set("Unknown", faCircleQuestion);
+  serviceTyepIcons.set("Unknown", faPersonCircleQuestion);
   console.log(
     serviceTyepIcons.get("NoPassengers"),
     "*******************************"
