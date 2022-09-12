@@ -8,7 +8,7 @@ import {
   faPersonBurst,
   faCircleQuestion,
   faPersonCircleQuestion,
-  faCar,
+  faTrain,
 } from "@fortawesome/free-solid-svg-icons";
 
 const App = () => {
@@ -114,16 +114,16 @@ const App = () => {
           console.log(json);
           setTrainData(json.TrainPositions);
         } catch (error) {
-          console.log("error", error);
+          console.log("Failed to Fetch the data from WMATA:", error);
         }
       };
       fetchData();
       const date = new Date();
-      const pst = date.toLocaleString("en-US", {
-        timeZone: "America/Los_Angeles",
+      const cst = date.toLocaleString("en-US", {
+        timeZone: "America/Chicago",
       });
-      setTimeValue(pst);
-    }, 10000);
+      setTimeValue(cst);
+    }, 5000);
   }, []);
 
   const uniqueSerivces = new Map();
@@ -161,9 +161,11 @@ const App = () => {
   const carCountData = [...uniqueCarCount.keys()];
   carCountData.unshift("all");
   const carFontIcons = new Map();
-  carFontIcons.set(8, faCar);
-  carFontIcons.set(6, faCar);
-  carFontIcons.set(0, faCar);
+  carFontIcons.set(8, faTrain);
+  carFontIcons.set(6, faTrain);
+  carFontIcons.set(4, faTrain);
+  carFontIcons.set(2, faTrain);
+  carFontIcons.set(0, faTrain);
   const serviceTyepIcons = new Map();
   serviceTyepIcons.set("NoPassengers", faPersonCircleXmark);
   serviceTyepIcons.set("Normal", faPeopleGroup);
@@ -243,8 +245,12 @@ const App = () => {
                         height: "12px",
                         width: "15px",
                         borderColor: linCodeValues.get(train.LineCode),
+                        //borderColor: "black",
                         marginLeft: "5px",
                         marginTop: "15px",
+                        //opacity: "0.7",
+                        color: "Black",
+                        //backgroundColor : linCodeValues.get(train.LineCode),
                         borderRadius: "10px",
                         borderWidth: "2px",
                       }}
