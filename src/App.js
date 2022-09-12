@@ -111,7 +111,7 @@ const App = () => {
         try {
           const response = await fetch(url);
           const json = await response.json();
-          //console.log(json);
+          console.log(json);
           setTrainData(json.TrainPositions);
         } catch (error) {
           console.log("Failed to Fetch the data from WMATA:", error);
@@ -163,11 +163,8 @@ const App = () => {
   const carFontIcons = new Map();
   carFontIcons.set(8, faTrain);
   carFontIcons.set(6, faTrain);
-<<<<<<< HEAD
   carFontIcons.set(4, faTrain);
   carFontIcons.set(2, faTrain);
-=======
->>>>>>> 2e3227c61abb150c7cc2051744f2108703bf17fb
   carFontIcons.set(0, faTrain);
   const serviceTyepIcons = new Map();
   serviceTyepIcons.set("NoPassengers", faPersonCircleXmark);
